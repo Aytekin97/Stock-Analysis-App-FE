@@ -25,7 +25,7 @@ const StockAnalysis = () => {
       const response = await fetch(`https://stock-analysis-app-be-production.up.railway.app/api/stock/${symbol}`);
       if (!response.ok) throw new Error('Error fetching data');
       const rawData = await response.json();
-      const timeSeriesData = rawData["Time Series (5min)"];
+      const timeSeriesData = rawData["Time Series (60min)"];
       const formattedData = Object.keys(timeSeriesData).map((time) => ({
         time,
         open: parseFloat(timeSeriesData[time]['1. open']),
