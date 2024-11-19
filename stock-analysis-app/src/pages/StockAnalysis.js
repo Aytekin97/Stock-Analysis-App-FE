@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import '../styles/StockAnalysis.css'; // For custom styling
+import '../styles/StockAnalysis.css';
 
 const companies = [
   { symbol: 'TSLA', name: 'Tesla' },
@@ -22,7 +22,7 @@ const StockAnalysis = () => {
     setError(null);
     setData([]);
     try {
-      const response = await fetch(`https://mysterious-sands-09816-909f28a343f7.herokuapp.com/api/stock/${symbol}`);
+      const response = await fetch(`https://stock-analysis-app-be-production.up.railway.app/api/stock/${symbol}`);
       if (!response.ok) throw new Error('Error fetching data');
       const rawData = await response.json();
       const timeSeriesData = rawData["Time Series (5min)"];
