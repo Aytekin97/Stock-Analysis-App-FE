@@ -10,7 +10,7 @@ const companies = [
   { company: 'Netflix'}
 ];
 
-const fetchNews = () => {
+const News = () => {
   const [data, setData] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -22,12 +22,13 @@ const fetchNews = () => {
     setData([]);
 
     try {
-      const response = await fetch(`postgresql://postgres:wrhkAlaohIJNEJwaMxVAJIoKjrslNDKU@junction.proxy.rlwy.net:41018/railway/api/news/${company}`);
+      const response = await fetch(`https://fetch-news-to-display-production.up.railway.app/api/news/${company}`);
       if (!response.ok) {
         const errorDetails = await response.text(); // Get response body for more details
         throw new Error(`Error fetching data: ${response.status} ${response.statusText}\n${errorDetails}`);
       };
 
+      const rawData = await response.json();
       const formattedData = rawData.map((article) => ({
         company_name: article.company_name,
         id: article.id,
@@ -53,7 +54,7 @@ const fetchNews = () => {
       <h1>Financial News</h1>
       <p>Stay updated with the latest news about your favorite companies.</p>
       <div className="company-grid">
-        {companies.map((company) => {
+        {companies.map((company) => (
           <div
             key={company.company}
             className='company-box'
@@ -61,7 +62,7 @@ const fetchNews = () => {
           >
             <h3>{company.company}</h3>
           </div>
-        })}
+        ))}
       </div>
 
       {loading && <p>Loading data...</p>}
@@ -87,4 +88,4 @@ const fetchNews = () => {
   );
 };
 
-export default fetchNews;
+export default News;
