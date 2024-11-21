@@ -12,7 +12,6 @@ const companies = [
 
 const News = () => {
   const [data, setData] = useState([]);
-  const [selectedCompany, setSelectedCompany] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -38,7 +37,6 @@ const News = () => {
         title: article.title,
       }));
 
-      setSelectedCompany(company);
       setData(formattedData);
 
     } catch (error) {
@@ -70,7 +68,7 @@ const News = () => {
 
       {data.length > 0 && (
         <div className='news-containers'>
-          {data.map((article) => {
+          {data.map((article) => (
             <div
               key={article.id}
               className='article-container'
@@ -81,7 +79,7 @@ const News = () => {
               <p>{article.summary}</p>
               <p style={{ fontStyle: "italic", color: "gray" }}>{article.published_date}</p>
             </div>
-          })}
+          ))}
         </div>
       )}
     </div>
